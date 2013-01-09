@@ -91,25 +91,16 @@ while True:
                 possible_outcomes_unique[letter].add(outcome)
                 possible_outcomes_all[letter].append(outcome)
 
-    options_all = []
-    total_all = 0
-    for letter in possible_outcomes_all:
-        count = len(possible_outcomes_all[letter])
-        total_all += count
-        options_all.append((count, letter))
-    options_unique = []
-    total_unique = 0
-    for letter in possible_outcomes_unique:
-        count = len(possible_outcomes_unique[letter])
-        total_unique += count
-        options_unique.append((count, letter))
-
-    print("Possible words: %r" % (letters,))
-    print("Possible outcomes (all): %r" % (possible_outcomes_all,))
-    print("Possible outcomes (unique): %r" % (possible_outcomes_unique,))
+    options_letters = []
+    total_letters = 0
+    for letter in letters:
+        count = len(letters[letter])
+        total_letters += count
+        options_letters.append((count, letter))
 
     options_letters = list(sorted(options_letters))
     target_letters = total_letters / 2
+    print("Possible words: %r" % (letters,))
     print("%d mogelijke uitkomsten, doel is %d (letters)" % (total_letters, target_letters))
     print("Options (letters): %r" % (",".join([repr((letter, count)) for count, letter in options_letters]),))
     optoptions_letters = list()
@@ -118,8 +109,16 @@ while True:
     optoptions_letters = list(sorted(optoptions_letters))
     print("Optimale options (letters): %r" % (",".join([repr((letter, dist)) for dist, letter in optoptions_letters]),))
 
+    options_all = []
+    total_all = 0
+    for letter in possible_outcomes_all:
+        count = len(possible_outcomes_all[letter])
+        total_all += count
+        options_all.append((count, letter))
+
     options_all = list(sorted(options_all))
     target_all = total_all / 2
+    print("Possible outcomes (all): %r" % (possible_outcomes_all,))
     print("%d mogelijke uitkomsten, doel is %d (all)" % (total_all, target_all))
     print("Options (all): %r" % (",".join([repr((letter, count)) for count, letter in options_all]),))
     optoptions_all = list()
@@ -128,8 +127,16 @@ while True:
     optoptions_all = list(sorted(optoptions_all))
     print("Optimale options (all): %r" % (",".join([repr((letter, dist)) for dist, letter in optoptions_all]),))
 
+    options_unique = []
+    total_unique = 0
+    for letter in possible_outcomes_unique:
+        count = len(possible_outcomes_unique[letter])
+        total_unique += count
+        options_unique.append((count, letter))
+
     options_unique = list(sorted(options_unique))
     target_unique = total_unique / 2
+    print("Possible outcomes (unique): %r" % (possible_outcomes_unique,))
     print("%d mogelijke uitkomsten, doel is %d (unique)" % (total_unique, target_unique))
     print("Options (unique): %r" % (",".join([repr((letter, count)) for count, letter in options_unique]),))
     optoptions_unique = list()
