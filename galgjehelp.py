@@ -104,11 +104,12 @@ while True:
     options = list(sorted(options))
     target = total / 2
     print("%d mogelijke uitkomsten, doel is %d" % (total, target))
+    print("Options: %r" % (",".join([repr((letter, count)) for count, letter in options]),))
     optoptions = list()
     for optioncount, optionletter in options:
         optoptions.append((abs(optioncount - target), optionletter))
     optoptions = list(sorted(optoptions))
-    print("Options: %r" % (",".join([repr((letter, dist)) for dist, letter in optoptions]),))
+    print("Optimale options: %r" % (",".join([repr((letter, dist)) for dist, letter in optoptions]),))
     top_letter = optoptions[0][1]
 
     print("Letters: %s" % ("".join(letters_die_erin_zitten),))
