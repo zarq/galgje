@@ -101,6 +101,8 @@ while True:
         total += count
         options.append((count, letter))
 
+    print("Possible outcomes: %r" % (possible_outcomes,))
+
     options = list(sorted(options))
     target = total / 2
     print("%d mogelijke uitkomsten, doel is %d" % (total, target))
