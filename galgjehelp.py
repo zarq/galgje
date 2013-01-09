@@ -65,7 +65,8 @@ while True:
     print("Rekenen...")
 
     letters = defaultdict(set)
-    possible_outcomes = defaultdict(set)
+    possible_outcomes_unique = defaultdict(set)
+    possible_outcomes_all = defaultdict(list)
     new_words = set()
     for word in words:
         add = True
@@ -86,33 +87,47 @@ while True:
         for letter in alphabet:
             if letter in word:
                 letters[letter].add(word)
-                possible_outcomes[letter].add(predict_outcome(template, word, letter))
+                outcome = predict_outcome(template, word, letter)
+                possible_outcomes_unique[letter].add(outcome)
+                possible_outcomes_all[letter].append(outcome)
 
-    def countfn(letter):
-        return len(letters[letter])
+    options_all = []
+    total_all = 0
+    for letter in possible_outcomes_all:
+        count = len(possible_outcomes_all[letter])
+        total_all += count
+        options_all.append((count, letter))
+    options_unique = []
+    total_unique = 0
+    for letter in possible_outcomes_unique:
+        count = len(possible_outcomes_unique[letter])
+        total_unique += count
+        options_unique.append((count, letter))
 
-    def count2fn(letter):
-        return len(possible_outcomes[letter])
+    print("Possible outcomes (all): %r" % (possible_outcomes_all,))
+    print("Possible outcomes (unique): %r" % (possible_outcomes_unique,))
 
-    options = []
-    total = 0
-    for letter in possible_outcomes:
-        count = len(possible_outcomes[letter])
-        total += count
-        options.append((count, letter))
+    options_all = list(sorted(options_all))
+    target_all = total_all / 2
+    print("%d mogelijke uitkomsten, doel is %d (all)" % (total_all, target_all))
+    print("Options (all): %r" % (",".join([repr((letter, count)) for count, letter in options_all]),))
+    optoptions_all = list()
+    for optioncount, optionletter in options_all:
+        optoptions_all.append((abs(optioncount - target), optionletter))
+    optoptions_all = list(sorted(optoptions_all))
+    print("Optimale options (all): %r" % (",".join([repr((letter, dist)) for dist, letter in optoptions_all]),))
 
-    print("Possible outcomes: %r" % (possible_outcomes,))
+    options_unique = list(sorted(options_unique))
+    target_unique = total_unique / 2
+    print("%d mogelijke uitkomsten, doel is %d (all)" % (total_unique, target_unique))
+    print("Options (all): %r" % (",".join([repr((letter, count)) for count, letter in options_unique]),))
+    optoptions_unique = list()
+    for optioncount, optionletter in options_unique:
+        optoptions_unique.append((abs(optioncount - target), optionletter))
+    optoptions_unique = list(sorted(optoptions_unique))
+    print("Optimale options (all): %r" % (",".join([repr((letter, dist)) for dist, letter in optoptions_unique]),))
 
-    options = list(sorted(options))
-    target = total / 2
-    print("%d mogelijke uitkomsten, doel is %d" % (total, target))
-    print("Options: %r" % (",".join([repr((letter, count)) for count, letter in options]),))
-    optoptions = list()
-    for optioncount, optionletter in options:
-        optoptions.append((abs(optioncount - target), optionletter))
-    optoptions = list(sorted(optoptions))
-    print("Optimale options: %r" % (",".join([repr((letter, dist)) for dist, letter in optoptions]),))
-    top_letter = optoptions[0][1]
+    top_letter = optoptions_all[0][1]
 
     print("Letters: %s" % ("".join(letters_die_erin_zitten),))
     print("Woorden: (%d) %s" % (len(words), ",".join(list(words)[:20]),))
