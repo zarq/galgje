@@ -103,6 +103,7 @@ while True:
 
     options = list(sorted(options))
     target = total / 2
+    print("%d mogelijke uitkomsten, doel is %d" % (total, target))
     optoptions = list()
     for optioncount, optionletter in options:
         optoptions.append((abs(optioncount - target), optionletter))
@@ -116,10 +117,9 @@ while True:
         print("Het woord is: %s" % (list(words)[0],))
         break
     words_met_letter = len(letters[top_letter])
-    if words_met_letter != len(words):
-        print("Voorkomendste letter: %s (%d van %d, %.2f%%)" % (
-            top_letter,words_met_letter, len(words),
-            100.0 * float(len(letters[top_letter])) / len(words)))
+    print("Voorkomendste letter: %s (%d van %d, %.2f%%)" % (
+        top_letter,words_met_letter, len(words),
+        100.0 * float(len(letters[top_letter])) / len(words)))
     print("!raad %s" % (top_letter,))
     while True:
         res = input("Zat er een %s in? (j/n) " % (top_letter,))
