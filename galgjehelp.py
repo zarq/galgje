@@ -119,15 +119,15 @@ while True:
 
     options_unique = list(sorted(options_unique))
     target_unique = total_unique / 2
-    print("%d mogelijke uitkomsten, doel is %d (all)" % (total_unique, target_unique))
-    print("Options (all): %r" % (",".join([repr((letter, count)) for count, letter in options_unique]),))
+    print("%d mogelijke uitkomsten, doel is %d (unique)" % (total_unique, target_unique))
+    print("Options (unique): %r" % (",".join([repr((letter, count)) for count, letter in options_unique]),))
     optoptions_unique = list()
     for optioncount, optionletter in options_unique:
         optoptions_unique.append((abs(optioncount - target_unique), optionletter))
     optoptions_unique = list(sorted(optoptions_unique))
-    print("Optimale options (all): %r" % (",".join([repr((letter, dist)) for dist, letter in optoptions_unique]),))
+    print("Optimale options (unique): %r" % (",".join([repr((letter, dist)) for dist, letter in optoptions_unique]),))
 
-    top_letter = optoptions_all[0][1]
+    top_letter = optoptions_unique[0][1]
 
     print("Letters: %s" % ("".join(letters_die_erin_zitten),))
     print("Woorden: (%d) %s" % (len(words), ",".join(list(words)[:20]),))
