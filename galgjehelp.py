@@ -108,7 +108,7 @@ while True:
     for optioncount, optionletter in options:
         optoptions.append((abs(optioncount - target), optionletter))
     optoptions = list(sorted(optoptions))
-    print("Options: %r" % (",".join([letter for dist, letter in optoptions]),))
+    print("Options: %r" % (",".join([repr((letter, dist)) for dist, letter in optoptions]),))
     top_letter = optoptions[0][1]
 
     print("Letters: %s" % ("".join(letters_die_erin_zitten),))
