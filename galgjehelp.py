@@ -113,7 +113,7 @@ while True:
     print("Options (all): %r" % (",".join([repr((letter, count)) for count, letter in options_all]),))
     optoptions_all = list()
     for optioncount, optionletter in options_all:
-        optoptions_all.append((abs(optioncount - target), optionletter))
+        optoptions_all.append((abs(optioncount - target_all), optionletter))
     optoptions_all = list(sorted(optoptions_all))
     print("Optimale options (all): %r" % (",".join([repr((letter, dist)) for dist, letter in optoptions_all]),))
 
@@ -123,7 +123,7 @@ while True:
     print("Options (all): %r" % (",".join([repr((letter, count)) for count, letter in options_unique]),))
     optoptions_unique = list()
     for optioncount, optionletter in options_unique:
-        optoptions_unique.append((abs(optioncount - target), optionletter))
+        optoptions_unique.append((abs(optioncount - target_unique), optionletter))
     optoptions_unique = list(sorted(optoptions_unique))
     print("Optimale options (all): %r" % (",".join([repr((letter, dist)) for dist, letter in optoptions_unique]),))
 
