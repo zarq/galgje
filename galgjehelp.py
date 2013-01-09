@@ -100,7 +100,7 @@ while True:
 
     options_letters = list(sorted(options_letters))
     target_letters = total_letters / 2
-    print("Possible words: %r" % (letters,))
+    print("Possible outcomes (letters): %r" % (letters,))
     print("%d mogelijke uitkomsten, doel is %d (letters)" % (total_letters, target_letters))
     print("Options (letters): %r" % (",".join([repr((letter, count)) for count, letter in options_letters]),))
     optoptions_letters = list()
@@ -145,7 +145,7 @@ while True:
     optoptions_unique = list(sorted(optoptions_unique))
     print("Optimale options (unique): %r" % (",".join([repr((letter, dist)) for dist, letter in optoptions_unique]),))
 
-    top_letter = optoptions_unique[0][1]
+    top_letter = optoptions_letters[0][1]
 
     print("Letters: %s" % ("".join(letters_die_erin_zitten),))
     print("Woorden: (%d) %s" % (len(words), ",".join(list(words)[:20]),))
