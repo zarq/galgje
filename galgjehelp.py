@@ -92,10 +92,10 @@ while True:
                 possible_outcomes_all[letter].append(outcome)
 
     options_letters = []
-    total_letters = 0
+    total_letters = len(words)
     for letter in letters:
         count = len(letters[letter])
-        total_letters += count
+        # total_letters += count
         options_letters.append((count, letter))
 
     options_letters = list(sorted(options_letters))
