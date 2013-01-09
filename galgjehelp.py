@@ -104,8 +104,19 @@ while True:
         total_unique += count
         options_unique.append((count, letter))
 
+    print("Possible words: %r" % (letters,))
     print("Possible outcomes (all): %r" % (possible_outcomes_all,))
     print("Possible outcomes (unique): %r" % (possible_outcomes_unique,))
+
+    options_letters = list(sorted(options_letters))
+    target_letters = total_letters / 2
+    print("%d mogelijke uitkomsten, doel is %d (letters)" % (total_letters, target_letters))
+    print("Options (letters): %r" % (",".join([repr((letter, count)) for count, letter in options_letters]),))
+    optoptions_letters = list()
+    for optioncount, optionletter in options_letters:
+        optoptions_letters.append((abs(optioncount - target_letters), optionletter))
+    optoptions_letters = list(sorted(optoptions_letters))
+    print("Optimale options (letters): %r" % (",".join([repr((letter, dist)) for dist, letter in optoptions_letters]),))
 
     options_all = list(sorted(options_all))
     target_all = total_all / 2
