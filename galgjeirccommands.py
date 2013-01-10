@@ -96,3 +96,6 @@ class Module(object):
 
     def handle_command_auto(self, args):
         self.auto_galgje = not self.auto_galgje
+
+    def handle_command_join(self, args):
+        self.sendstring("JOIN %s\r\n" % (args,))

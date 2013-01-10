@@ -14,9 +14,9 @@ CONNECTED, NICK_SENT, JOINING, JOINED = range(4)
 class IrcClient(object):
     HOST='irc.fruit.je'
     PORT=6667
-    NICK='ivo'
-    IDENT='ivo'
-    REALNAME='ivo'
+    NICK='ivobot'
+    IDENT='ivobot'
+    REALNAME='ivobot'
     CHANNEL = "#ivo"
 
     def __init__(self):
