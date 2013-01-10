@@ -13,7 +13,9 @@ def create_re_from_template(template, gerade_letters):
         dot = '.'
     else:
         dot = '[^' + ''.join(gerade_letters) + ']'
-    return re.compile('^' + template.replace('_', dot) + '$')
+    expr = '^' + template.replace('_', dot) + '$'
+    print("REGEX=%r" % (expr,))
+    return re.compile(expr)
 
 print("Inlezen...")
 with open('dutch', 'r') as f:
@@ -83,12 +85,15 @@ while True:
         if add:
             if match.match(word):
                 new_words.add(word)
-                words = new_words
+    words = new_words
 
     print("Letters: %s" % ("".join(letters_die_erin_zitten),))
     print("Woorden: (%d) %s" % (len(words), ",".join(list(words)[:20]),))
     if len(words) == 1:
         print("Het woord is: %s" % (list(words)[0],))
+        break
+    if len(words) == 0:
+        print("Ik weet het niet!")
         break
 
     print("Analyzing...")
