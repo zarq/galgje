@@ -41,7 +41,7 @@ class IrcClient(object):
         debug(string, end='')
         self.send_queue.put(string.encode('utf-8'))
 
-    def parse_line(self, line, n=2):
+    def parse_line(self, line, n=3):
         parts = []
         while n > 0:
             if ' ' in line:
@@ -76,7 +76,7 @@ class IrcClient(object):
                     self.state = JOINED
         elif self.state == JOINED:
             if line.startswith(':'):
-                source, cmd, dest, args = self.parse_line(line, 3)
+                source, cmd, dest, args = self.parse_line(line, 4)
                 self.module.handle(source, cmd, dest, args)
 
         # if line[0] == 'PING':
