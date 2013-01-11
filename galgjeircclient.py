@@ -49,6 +49,8 @@ class IrcClient(object):
                 n -= 1
                 parts.append(part)
             else:
+                parts.append(line)
+                n -= 1
                 break
         if n > 0:
             parts += [None] * n
