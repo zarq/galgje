@@ -105,3 +105,7 @@ class Module(object):
 
     def handle_command_leave(self, args):
         self.sendstring("PART %s\r\n" % (args,))
+
+    def handle_command_quit(self, args):
+        self.sendstring("QUIT :Terminating\r\n")
+

@@ -80,6 +80,8 @@ class IrcClient(object):
             if line.startswith(':'):
                 source, cmd, dest, args = self.parse_line(line, 4)
                 self.module.handle(source, cmd, dest, args)
+            if line.startswith('ERROR'):
+                sys.exit(0)
 
         # if line[0] == 'PING':
         #     sendstring("PONG %s\r\n" % (line[1],))
