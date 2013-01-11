@@ -42,7 +42,17 @@ class IrcClient(object):
         self.send_queue.put(string.encode('utf-8'))
 
     def parse_line(self, line, n=2):
-        return line.split(' ', n)
+        parts = []
+        while n > 0:
+            if ' ' in line:
+                part, line = line.split(' ', 1)
+                n -= 1
+                parts.append(part)
+            else:
+                break
+        if n > 0:
+            parts += [None] * n
+        return parts
 
     def dispatch_line(self, line):
         debug(line)
