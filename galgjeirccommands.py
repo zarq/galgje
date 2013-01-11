@@ -1,6 +1,7 @@
 import traceback
 import re
 import imp
+import time
 
 from galgje_utils import debug
 import galgje
@@ -77,6 +78,7 @@ class Module(object):
 
     def handle(self, source, cmd, dest, args):
         # debug("source=%r; cmd=%r; args=%r" % (source, cmd, args))
+        start = time.time()
         recipient = self.parse_recipient(source, dest)
         try:
             if cmd == 'PRIVMSG':
@@ -90,6 +92,7 @@ class Module(object):
             traceback.print_exc()
             recipient = Recipient('#ivo', 'zarq')
             self.respond_publicly(recipient, "HALP %r" % (ex,))
+        debug("Handled in %.3fs" % (time.time() - start,))
 
     def handle_command_stil(self):
         self.quiet = True
@@ -99,3 +102,6 @@ class Module(object):
 
     def handle_command_join(self, args):
         self.sendstring("JOIN %s\r\n" % (args,))
+
+    def handle_command_leave(self, args):
+        self.sendstring("PART %s\r\n" % (args,))

@@ -44,7 +44,7 @@ class IrcClient(object):
     def parse_line(self, line, n=3):
         parts = []
         while n > 0:
-            if ' ' in line:
+            if ' ' in line and n > 1:
                 part, line = line.split(' ', 1)
                 n -= 1
                 parts.append(part)
