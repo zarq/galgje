@@ -19,12 +19,12 @@ class Module(object):
         assert(s.startswith(':'))
         s = s[1:]
         if s.startswith('Galgjewoord:'):
-            debug(s)
+            # debug(s)
             pattern = b'^.*\xe2\x80\x98(?P<template>.*)\xe2\x80\x99( \((?P<letters>.*)\))?\.'.decode('utf-8')
-            debug(pattern)
+            # debug(pattern)
             match = re.match(pattern, s)
             if match:
-                debug(match.group('template'))
+                # debug(match.group('template'))
                 template = match.group('template')
                 letters = match.group('letters')
                 verboden = ''
@@ -38,11 +38,11 @@ class Module(object):
     def galgje_guess(self, sender, template, verboden=set()):
         # imp.reload(galgje)
         poging = galgje.galgje_reentrant(template, verboden)
-        debug(poging)
+        # debug(poging)
         self.respond_publicly(sender, "!raad %s" % (poging,))
 
     def parse_command(self, sender, s):
-        debug("command: %r" % (s,))
+        # debug("command: %r" % (s,))
         if s.startswith(':`'):
             if ' ' in s:
                 command, args = s[2:].split(' ', 1)
@@ -66,8 +66,8 @@ class Module(object):
             self.respond_publicly(sender, "No such command %r" % (command,))
 
     def parse_recipient(self, source, dest):
-        debug(source)
-        debug(dest)
+        # debug(source)
+        # debug(dest)
         assert(source.startswith(':'))
         source = source[1:]
         if '!' in source:
@@ -76,7 +76,7 @@ class Module(object):
         return recipient
 
     def handle(self, source, cmd, dest, args):
-        debug("source=%r; cmd=%r; args=%r" % (source, cmd, args))
+        # debug("source=%r; cmd=%r; args=%r" % (source, cmd, args))
         recipient = self.parse_recipient(source, dest)
         try:
             if cmd == 'PRIVMSG':

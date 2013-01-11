@@ -28,7 +28,7 @@ with open("cache2", 'r') as f:
     for line in f:
         line = line.strip()
         letter,forbidden,template = line.split('|')
-        cache2[state][forbidden] = letter
+        cache2[template][forbidden] = letter
 
 def save_cache2():
     with open('cache2', 'w') as f:
@@ -49,7 +49,7 @@ def create_re_from_template(template, gerade_letters):
         overgebleven_letters -= gerade_letters
         dot = '[' + ''.join(overgebleven_letters) + ']'
     expr = '^' + template.replace('_', dot) + '$'
-    debug("REGEX=%r" % (expr,))
+    # debug("REGEX=%r" % (expr,))
     return re.compile(expr)
 
 
@@ -98,7 +98,7 @@ def gogogalgje(raad, template):
     while True:
         # Itereren vanaf hier
         match = create_re_from_template(template, letters_die_erin_zitten)
-        debug("Rekenen...")
+        # debug("Rekenen...")
 
         letters = defaultdict(set)
         possible_outcomes_unique = defaultdict(set)
@@ -120,8 +120,8 @@ def gogogalgje(raad, template):
                     new_words.add(word)
         words = new_words
 
-        debug("Letters: %s" % ("".join(letters_die_erin_zitten),))
-        debug("Woorden: (%d) %s" % (len(words), ",".join(list(words)[:20]),))
+        # debug("Letters: %s" % ("".join(letters_die_erin_zitten),))
+        # debug("Woorden: (%d) %s" % (len(words), ",".join(list(words)[:20]),))
         if len(words) == 1:
             print("Het woord is: %s" % (list(words)[0],))
             resultaat, new_template = raad(list(words)[0], template)
@@ -134,10 +134,10 @@ def gogogalgje(raad, template):
             return succes, None
 
         if template in cache and cache[template] in alphabet:
-            debug("In cache")
+            # debug("In cache")
             top_letter = cache[template]
         else:
-            debug("Not in cache, analyzing...")
+            # debug("Not in cache, analyzing...")
             for word in words:
                 for letter in alphabet:
                     if letter in word:
@@ -232,9 +232,9 @@ def gogogalgje(raad, template):
         pogingen.append(top_letter)
 
         words_met_letter = len(letters[top_letter])
-        debug("Beste letter: %s (%d van %d, %.2f%%)" % (
-            top_letter,words_met_letter, len(words),
-            100.0 * float(len(letters[top_letter])) / len(words)))
+        # debug("Beste letter: %s (%d van %d, %.2f%%)" % (
+        #     top_letter,words_met_letter, len(words),
+        #     100.0 * float(len(letters[top_letter])) / len(words)))
         resultaat, new_template = raad(top_letter, template)
         if resultaat == True:
             # letter zat erin
@@ -257,14 +257,14 @@ def extract_letters(template):
     return letters
 
 def galgje_reentrant(template, letters_die_er_niet_in_zitten):
-    forbidden = ''.join(letters_die_er_niet_in_zitten)
+    forbidden = ''.join(sorted(letters_die_er_niet_in_zitten))
     if forbidden in cache2[template]:
         return cache2[template][forbidden]
 
     # Itereren vanaf hier
     letters_die_erin_zitten = extract_letters(template)
     match = create_re_from_template(template, letters_die_erin_zitten)
-    debug("Rekenen...")
+    # debug("Rekenen...")
 
     letters = defaultdict(set)
     possible_outcomes_unique = defaultdict(set)
@@ -286,8 +286,8 @@ def galgje_reentrant(template, letters_die_er_niet_in_zitten):
                 new_words.add(word)
     words = new_words
 
-    debug("Letters: %s" % ("".join(letters_die_erin_zitten),))
-    debug("Woorden: (%d) %s" % (len(words), ",".join(list(words)[:20]),))
+    # debug("Letters: %s" % ("".join(letters_die_erin_zitten),))
+    # debug("Woorden: (%d) %s" % (len(words), ",".join(list(words)[:20]),))
     if len(words) == 1:
         print("Het woord is: %s" % (list(words)[0],))
         return list(words)[0]
@@ -369,7 +369,7 @@ def galgje_reentrant(template, letters_die_er_niet_in_zitten):
     for optioncount, optionletter in options_astrid:
         optoptions_astrid.append((abs(optioncount), optionletter))
     optoptions_astrid = list(sorted(optoptions_astrid, reverse=True))
-    debug("Optimale options (astrid): %r" % (",".join([repr((letter, dist)) for dist, letter in optoptions_astrid]),))
+    # debug("Optimale options (astrid): %r" % (",".join([repr((letter, dist)) for dist, letter in optoptions_astrid]),))
 
     # options_unique = []
     # total_unique = 0
