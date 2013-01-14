@@ -44,7 +44,7 @@ class IrcClient(object):
     def parse_line(self, line, n=3):
         parts = []
         while n > 0:
-            if ' ' in line:
+            if ' ' in line and n > 1:
                 part, line = line.split(' ', 1)
                 n -= 1
                 parts.append(part)
@@ -80,6 +80,8 @@ class IrcClient(object):
             if line.startswith(':'):
                 source, cmd, dest, args = self.parse_line(line, 4)
                 self.module.handle(source, cmd, dest, args)
+            if line.startswith('ERROR'):
+                sys.exit(0)
 
         # if line[0] == 'PING':
         #     sendstring("PONG %s\r\n" % (line[1],))
