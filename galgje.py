@@ -256,6 +256,14 @@ def extract_letters(template):
             letters.add(letter)
     return letters
 
+def extract_letters_str(template):
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    letters = ''
+    for letter in template:
+        if letter in alphabet:
+            letters += letter
+    return letters
+
 def galgje_reentrant(template, letters_die_er_niet_in_zitten):
     forbidden = ''.join(sorted(letters_die_er_niet_in_zitten))
     if forbidden in cache2[template]:

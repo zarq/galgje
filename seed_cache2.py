@@ -1,5 +1,5 @@
 from collections import defaultdict
-from galgje import create_re_from_template, extract_letters, predict_outcome
+from galgje import create_re_from_template, extract_letters_str, predict_outcome
 from math import log as ln
 import time
 
@@ -52,7 +52,7 @@ def galgje_reentrant(template, letters_die_er_niet_in_zitten):
     cache_misses[0] += 1
 
     # Itereren vanaf hier
-    letters_die_erin_zitten = extract_letters(template)
+    letters_die_erin_zitten = extract_letters_str(template)
     # match = create_re_from_template(template, letters_die_erin_zitten)
     # debug("Rekenen...")
 
@@ -63,7 +63,6 @@ def galgje_reentrant(template, letters_die_er_niet_in_zitten):
             new_words.add(word)
     words = new_words
 
-    # debug("Letters: %s" % ("".join(letters_die_erin_zitten),))
     # debug("Woorden: (%d) %s" % (len(words), ",".join(list(words)[:20]),))
     if len(words) == 1:
         print("Het woord is: %s" % (list(words)[0],))
