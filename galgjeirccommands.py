@@ -36,6 +36,11 @@ class Module(object):
             if self.auto_galgje:
                 self.say_publicly(sender, "!galgje")
 
+    def parse_invite(self, recipient, args):
+        assert(args.startswith(':'))
+        channel = args[1:]
+        self.sendstring("JOIN %s\r\n" % (channel,))
+
     def galgje_guess(self, sender, template, verboden=set()):
         # imp.reload(galgje)
         poging = galgje.galgje_reentrant(template, verboden)
@@ -88,6 +93,9 @@ class Module(object):
                     self.parse_command(recipient, args)
                 elif recipient.nick == 'f00f':
                     self.parse_f00f(recipient, args)
+            elif cmd == 'INVITE':
+                if recipient.nick == 'zarq':
+                    self.parse_invite(recipient, args)
         except Exception as ex:
             traceback.print_exc()
             recipient = Recipient('#ivo', 'zarq')

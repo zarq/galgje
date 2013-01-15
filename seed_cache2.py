@@ -138,8 +138,9 @@ for word in all_words:
     done = float(done_count) / len(all_words)
     debug("%.3f%% of %d words" % (done * 100.0, len(all_words)))
     td = time.time() - start
+    remaining = float(len(all_words) - done_count) / len(all_words)
     if done > 0:
-        debug("ETA: %f seconds" % (td / done))
+        debug("ETA: %f seconds" % (td / done * remaining))
     debug("Niet-gerade woorden: %.3f%%" % (float(len(failed_words)) * 100.0 / done_count,))
 
 
@@ -152,4 +153,5 @@ def save_cache2():
                 letter = cache2[template][forbidden]
                 f.write("%s|%s|%s\n" % (letter, forbidden, template))
 
+import atexit
 atexit.register(save_cache2)
