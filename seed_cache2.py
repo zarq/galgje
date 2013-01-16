@@ -36,11 +36,11 @@ def add_to_cache2(letter, forbidden, template):
 
 def match_template(word, template, letters_die_erin_zitten, letters_die_er_niet_in_zitten):
     for tchar, wchar in zip(template, word):
-        if tchar == '_':
+        if tchar != wchar:
+            return False
+        elif tchar == '_':
             if wchar in letters_die_erin_zitten or wchar in letters_die_er_niet_in_zitten:
                 return False
-        elif tchar != wchar:
-            return False
     return True
 
 def galgje_reentrant(template, letters_die_er_niet_in_zitten):
